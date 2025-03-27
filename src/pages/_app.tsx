@@ -1,10 +1,13 @@
+import NavBar from "@/components/layout/NavBar";
+import Splash from "@/components/splash/Splash";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-
 export default function App({ Component, pageProps }: AppProps) {
+  // todo: show splash only on first load
   return (
-    <div className="h-screen w-screen flex-1 flex justify-center items-center bg-white">
+    <Splash>
+      <NavBar />
       <Component {...pageProps} />
-    </div>
+    </Splash>
   );
 }

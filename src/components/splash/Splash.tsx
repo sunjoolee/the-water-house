@@ -19,7 +19,7 @@ export default function Splash({ children }: { children: React.ReactNode }) {
   return (
     <div className="h-screen w-screen flex-1 flex justify-center items-center bg-black">
       <AnimatePresence mode="sync">
-        {!showLogo && (
+        {!showLogo && !showChildren && (
           <motion.div
             key="A"
             initial={{ opacity: 0 }}
