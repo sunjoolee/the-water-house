@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-const NavBar = ({ showAnimation = false }: { showAnimation?: boolean }) => {
+// todo: add animated nav bar for home screen
+const NavBar = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
@@ -62,7 +63,7 @@ const NavBar = ({ showAnimation = false }: { showAnimation?: boolean }) => {
                 Contact
               </Link>
               <Link href="/access" onClick={() => setShowMenu(false)}>
-                오사는 길
+                오시시는 길
               </Link>
             </div>
           </motion.div>
