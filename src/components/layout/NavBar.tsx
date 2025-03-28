@@ -39,7 +39,7 @@ const NavBar = () => {
           >
             <div className="flex flex-row justify-between items-center">
               <Image
-                src="/layout/navbar_logo.png"
+                src="/layout/logo.png"
                 alt="logo"
                 width={265}
                 height={20}
