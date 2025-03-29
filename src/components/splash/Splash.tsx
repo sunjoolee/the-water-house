@@ -26,7 +26,7 @@ export default function Splash({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <div className="h-screen w-screen flex-1 flex justify-center items-center bg-black">
+    <div className="h-full w-screen flex-1 flex justify-center items-center bg-black">
       <AnimatePresence mode="sync">
         {!showLogo && !showChildren && (
           <motion.div
@@ -35,7 +35,7 @@ export default function Splash({ children }: { children: React.ReactNode }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
-            style={{ position: "absolute", top: 0, left: 0 }}
+            style={{ height: "100%", width: "100%", position: "absolute", top: 0, left: 0 }}
           >
             <div className="h-screen w-screen flex-1 flex justify-center items-center bg-black">
               <Image
