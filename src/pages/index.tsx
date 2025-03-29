@@ -1,9 +1,27 @@
+import BookchonSection from "@/components/home/2_BookchonSection";
+
+import MainSection from "@/components/home/1_MainSection";
+import ArchitectSection from "@/components/home/3_ArchitectSection";
+import FurnishSection from "@/components/home/4_FurnishSection";
+import ArtSection from "@/components/home/6_ArtSection";
+import ExperienceSection from "@/components/home/5_ExperienceSection";
+import AccessSection from "@/components/home/7_AccessSection";
+import Splash from "@/components/splash/Splash";
+
 export default function Home() {
   return (
-    <div className="w-screen h-screen bg-[url('/main/main_section1_bg.png')] bg-no-repeat bg-center bg-cover">
-      <div className="w-full h-full flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold">Hello</h1>
+    // show splash on home screen
+    <Splash>
+      <div className="w-screen h-full overflow-x-hidden">
+        <MainSection />
+        {/* <BookchonSection />
+        <ArchitectSection />
+        <FurnishSection />
+        <ExperienceSection />
+        <ArtSection />
+        <AccessSection /> */}
       </div>
-    </div>
+    </Splash>
+
   );
 }
