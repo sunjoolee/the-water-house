@@ -1,50 +1,88 @@
+
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const MainSection = () => {
-
+export default function ParallaxScrollWithDim() {
     useGSAP(() => {
-        gsap.to('.main-section-bg', {
-            yPercent: 30,
-            ease: 'none',
-            scrollTrigger: {
-                trigger: '.main-section-container',
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: true,
-            },
+        // dim effect
+        gsap.fromTo(
+            '.main-section-dim',
+            { opacity: 0 },
+            {
+                opacity: 0.5,
+                scrollTrigger: {
+                    trigger: '.main-section-contents',
+                    start: 'top top',
+                    end: '+=100',
+                    scrub: true,
+                },
+            }
+        );
+        // scroll contents
+        gsap.fromTo(
+            '.main-section-contents',
+            { opacity: 0 },
+            {
+                opacity: 1,
+                scrollTrigger: {
+                    trigger: '.main-section-contents',
+                    start: 'top top',
+                    end: '+=500',
+                    scrub: true,
+                },
+            }
+        );
+
+        // fixed contents
+        ScrollTrigger.create({
+            trigger: '.main-section-contents',
+            start: 'top top',
+            end: '+=500',
+            pin: true,
+            scrub: true,
+            markers: true,
         });
 
-        gsap.to('.main-section-contents', {
-            yPercent: -20,
+        // contents scroll complete, then move background
+        gsap.to('.main-section-bg', {
+            yPercent: -30,
             ease: 'none',
             scrollTrigger: {
-                trigger: '.main-section-container',
-                start: 'top bottom',
-                end: 'bottom top',
+                trigger: '.main-section-contents',
+                start: 'bottom bottom',
+                end: '+=50%',
                 scrub: true,
             },
         });
     }, []);
 
-    return <section className="main-section-container w-screen h-screen relative overflow-hidden">
-        <div className="main-section-bg w-screen h-full bg-[url('/main/section1_main_bg.png')] bg-no-repeat bg-center bg-cover absolute top-0 left-0" />
-        {/* <div className="main-section-pannel w-screen h-screen bg-black opacity-0 z-5" /> */}
-
-        <div className="main-section-contents w-screen h-full z-10 flex flex-col gap-4">
-            <Description />
-        </div>
-    </section >;
-};
-
-export default MainSection;
-
-const Description = () => {
     return (
-        <div className="text-white flex flex-col gap-4 pt-[300px]">
+        <section className="relative h-[300vh]">
+            {/* background image */}
+            <div
+                className="main-section-bg fixed top-0 left-0 w-full h-screen bg-cover bg-center"
+                style={{ backgroundImage: "url('/main/section1_main_bg.png')" }}
+            ></div>
+
+            {/* dim layer */}
+            <div className="main-section-dim fixed top-0 left-0 w-full h-screen bg-black opacity-0 z-1 pointer-events-none transition-opacity"></div>
+
+            {/* fixed + scroll contents */}
+            <div className="main-section-contents relative z-10 h-[200vh] opacity-0 text-white pt-[300px]">
+                <Description className="pt-[300px]" />
+                <Description />
+            </div>
+        </section >
+    );
+}
+
+
+const Description = ({ className }: { className?: string }) => {
+    return (
+        <div className={`text-white flex flex-col gap-4 ${className}`}>
             <p>
                 더 워터하우스<br />
                 물, 가장 자연스러운 움직임<br />
