@@ -3,14 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-// todo: add animated nav bar for home screen
 const NavBar = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
     <>
       {!showMenu && (
-        <div className="w-full h-16 flex flex-row justify-between items-center absolute top-0 left-0 z-50 px-6 py-20 backdrop-blur-sm">
+        <div className="w-full h-auto flex flex-row justify-between items-center fixed top-0 left-0 z-50 px-4 py-4 backdrop-blur-sm">
           <Link href="/">
             <Image
               src="/layout/navbar_logo.png"
@@ -27,7 +26,8 @@ const NavBar = () => {
             onClick={() => setShowMenu(true)}
           />
         </div>
-      )}
+      )
+      }
       <AnimatePresence>
         {showMenu && (
           <motion.div

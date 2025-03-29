@@ -2,15 +2,24 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { SplashContext } from "@/pages/_app";
 
+// todo: add nav bar animation
 export default function Splash({ children }: { children: React.ReactNode }) {
+  const { setIsOnSplash } = useContext(SplashContext);
+
   const [showLogo, setShowLogo] = useState(false);
   const [showChildren, setShowChildren] = useState(false);
+
   useEffect(() => {
+    setIsOnSplash(true); // start splash
     const timers = [
-      setTimeout(() => setShowLogo(true), 2000), // A fadeout, B fadein
-      setTimeout(() => setShowChildren(true), 4000), // B fadeout
+      setTimeout(() => setShowLogo(true), 2000), // bg fadeout, logo fadein
+      setTimeout(() => {
+        setShowChildren(true)
+        setIsOnSplash(false) // end splash
+      }, 4000), // logo fadeout, children fadein
     ];
 
     return () => timers.forEach(clearTimeout);
@@ -21,7 +30,7 @@ export default function Splash({ children }: { children: React.ReactNode }) {
       <AnimatePresence mode="sync">
         {!showLogo && !showChildren && (
           <motion.div
-            key="A"
+            key="splash_bg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -40,7 +49,7 @@ export default function Splash({ children }: { children: React.ReactNode }) {
         )}
         {showLogo && !showChildren && (
           <motion.div
-            key="B"
+            key="splash_logo"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -57,7 +66,15 @@ export default function Splash({ children }: { children: React.ReactNode }) {
             </div>
           </motion.div>
         )}
-        {showChildren && children}
+        {showChildren && (<motion.div
+          key="splash_children"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          {children}
+        </motion.div>
+        )}
       </AnimatePresence>
     </div>
   );
